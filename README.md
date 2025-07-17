@@ -50,8 +50,14 @@ cd ultrarf-protocol
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the simulation
+# Run the physical layer simulation
 python simulate/physical_layer.py
+
+# Run the protocol-level simulation (PHY+MAC)
+python simulate/protocol_sim.py
+
+# Run all protocol feature tests
+python -m unittest discover tests
 
 # Start the GNU Radio prototype
 gnuradio-companion flowgraphs/ultrarf_prototype.grc
@@ -59,7 +65,6 @@ gnuradio-companion flowgraphs/ultrarf_prototype.grc
 
 ## 📁 Repository Structure
 
-```
 ultrarf-protocol/
 ├── docs/                    # Documentation and specifications
 │   ├── protocol-spec.md     # Complete protocol specification
@@ -79,6 +84,40 @@ ultrarf-protocol/
 └── examples/              # Example configurations
 
 ```
+```
+ultrarf-protocol/
+├── docs/                    # Documentation and specifications
+│   ├── protocol-spec.md     # Complete protocol specification
+│   ├── fcc-compliance.md    # FCC Part 97 compliance guide
+│   └── hardware-guide.md    # Hardware setup instructions
+├── src/                     # Source code
+│   ├── physical/            # Physical layer implementation (ofdm_modem.py, qpsk_modem.py, etc.)
+│   ├── mac/                 # MAC layer implementation (tdma_dynamic.py, qos_manager.py, etc.)
+│   └── network/             # Network layer (mesh routing, mesh_services.py)
+├── simulate/                # Simulation scripts
+│   ├── channel_model.py     # SHF channel modeling
+│   ├── physical_layer.py    # PHY performance simulation
+│   └── protocol_sim.py      # End-to-end protocol simulation (PHY+MAC)
+├── flowgraphs/              # GNU Radio flowgraphs
+├── fpga/                    # FPGA implementations
+├── tests/                   # Unit and integration tests (test_phase1.py, test_phase2.py, test_features.py)
+├── tools/                   # Utility scripts
+└── examples/                # Example configurations
+```
+
+You can run protocol and physical layer simulations, as well as all feature tests:
+
+```bash
+# Run the physical layer simulation
+python simulate/physical_layer.py
+
+# Run the protocol-level simulation (PHY+MAC)
+python simulate/protocol_sim.py
+
+# Run all protocol feature tests
+python -m unittest discover tests
+```
+
 
 ## 🤝 Contributing
 
@@ -132,6 +171,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 - **Converter**: Kuhne Electronic MKU 10 G3 ($500)
 - **Antenna**: 24 dBi parabolic dish ($200)
 - **Computer**: Desktop with GPU for DSP acceleration
+
+### SDR Software Setup
+- **Python 3.8+** and required packages (see `requirements.txt`)
+- **GNU Radio 3.10+** for real-time SDR prototyping
+- **Simulation**: All protocol features can be tested in software without hardware using the provided simulation scripts.
 
 ## 📊 Performance Benchmarks
 

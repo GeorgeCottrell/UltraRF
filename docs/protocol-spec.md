@@ -51,6 +51,7 @@ The UltraRF protocol is designed to achieve maximum throughput within FCC Part 9
 - **Subcarrier Spacing**: 1.5625 kHz
 - **Symbol Duration**: 640 μs + 160 μs guard interval
 - **Effective Symbol Rate**: 1250 symbols/second
+- **Implemented in**: `src/physical/ofdm_modem.py`, `simulate/physical_layer.py`
 
 #### Adaptive Modulation Schemes
 | MCS Index | Modulation | Coding Rate | Bits/Symbol | Min SNR | Data Rate* |
@@ -65,6 +66,7 @@ The UltraRF protocol is designed to achieve maximum throughput within FCC Part 9
 | 7         | 256-QAM    | 3/4         | 312         | 28 dB   | 390 kbps   |
 
 *Per 100 kHz channel
+- **Implemented in**: `src/physical/adaptive_modem.py`, `simulate/physical_layer.py`
 
 ### Forward Error Correction
 
@@ -74,6 +76,7 @@ The UltraRF protocol is designed to achieve maximum throughput within FCC Part 9
 - **Decoding**: Sum-product algorithm
 - **Iterations**: 50 maximum
 - **Early Termination**: Syndrome check
+- **Implemented in**: `src/physical/ldpc_codec.py` (interface, ready for real code)
 
 ### Channel Bonding
 
@@ -92,11 +95,13 @@ Ch50: 10.4900 - 10.5000 MHz
 Maximum Channels: 50 (5 MHz aggregate)
 Maximum Throughput: 19.5 Mbps @ MCS7
 ```
+- **Implemented in**: `src/physical/channel_bonding.py`
 
 ### Pilot Signals
 - **Pattern**: Scattered pilots at subcarriers -21, -7, 7, 21
 - **Sequence**: Zadoff-Chu sequence for channel estimation
 - **Power**: +3 dB boost relative to data subcarriers
+- **Implemented in**: `simulate/physical_layer.py`
 
 ## MAC Layer
 
