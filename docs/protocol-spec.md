@@ -18,7 +18,7 @@ The UltraRF protocol is designed to achieve maximum throughput within FCC Part 9
 - **Modularity**: Each layer can be upgraded independently
 - **Efficiency**: Minimize overhead, maximize throughput
 - **Adaptability**: Dynamic adjustment to RF conditions
-- **Compliance**: Full FCC Part 97 regulatory compliance
+- **Compliance**: Full FCC Part 97 regulatory compliance (including no encryption per §97.113)
 - **Simplicity**: Implementable on affordable SDR hardware
 
 ## System Architecture
@@ -246,6 +246,22 @@ where:
 - **Harmonics**: -40 dBc minimum
 
 ## Implementation Notes
+### Future and Advanced Features
+
+The following features are recommended for future versions to further increase speed, robustness, and flexibility:
+
+- **Advanced Error Correction**: Implement real LDPC FEC (see `src/physical/ldpc_codec.py`) and add Hybrid ARQ (automatic repeat request) for selective retransmissions.
+- **Higher-Order Modulation**: Add 1024-QAM for very high SNR links.
+- **MIMO**: Support for multiple antennas (spatial multiplexing/diversity).
+- **Beamforming**: Digital or analog beamforming for improved SNR and interference rejection.
+- **MAC Layer Enhancements**: Spatial reuse, advanced scheduling (proportional fair, max-min fairness), and fast handoff/roaming.
+- **Network Layer Enhancements**: Multi-path routing, packet-level load balancing, network coding, and secure/authenticated routing (without encryption).
+- **PHY/MAC Cross-Layer Optimization**: Real-time slot/MCS adaptation based on PHY feedback.
+- **Distributed Synchronization**: PTP or GPS-based time sync for tighter TDMA slotting.
+- **Real-Time Monitoring & Self-Healing**: SNR/BER monitoring, automatic rerouting, and mesh self-healing.
+- **Security**: Authentication and access control (no encryption, per FCC §97.113).
+
+**Note:** Encryption is not permitted under FCC Part 97.113. All security features must be limited to authentication and access control only.
 
 ### Hardware Requirements
 - **ADC Resolution**: 12-bit minimum, 16-bit preferred
